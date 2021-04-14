@@ -25,9 +25,9 @@ class Bar:
                 }
             self.operations.append(sale_drinks)
         elif name in self.drinks and self.drinks[name] < amount:
-            print('Sorry, We don"t have enough')
+            print("Sorry, We don't have enough")
         else:
-            print('Sorry, we don"t have it. Something else?')
+            print("Sorry, we don't have it. Something else?")
 
     def supply(self, name, amount):
         if name in self.drinks:
