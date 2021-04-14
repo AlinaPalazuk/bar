@@ -13,41 +13,31 @@ class Bar:
             'rum': 11,
         }
 
-    def get_drinks(self, name, amount):
-        if name in self.drinks and self.drinks[name] > amount:
-            self.drinks[name] -= amount
-            print('Here you are!')
-            sale_drinks = {
+    def add_operation(self, name, amount, op_type):
+        self.operations.append(
+            {
                 'name': name,
                 'quantity': amount,
-                'type': 'sale',
+                'type': op_type,
                 'time': datetime.now(),
-                }
-            self.operations.append(sale_drinks)
-        elif name in self.drinks and self.drinks[name] < amount:
-            print("Sorry, We don't have enough")
-        else:
-            print("Sorry, we don't have it. Something else?")
+            }
+        )
+
+    def get_drinks(self, name, amount):
+        if name not in self.drinks:
+            return (False, False)
+        if self.drinks[name] >= amount:
+            self.drinks[name] -= amount
+            self.add_operation(name=name, amount=amount, op_type='sale')
+            return (True, True)
+        return (True, False)
 
     def supply(self, name, amount):
         if name in self.drinks:
             self.drinks[name] += amount
-            arrival_drinks = {
-                'name': name,
-                'quantity': amount,
-                'type': 'arrival',
-                'time': datetime.now(),
-                }
-            self.operations.append(arrival_drinks)
         else:
             self.drinks[name] = amount
-            arrival_drinks = {
-                'name': name,
-                'quantity': amount,
-                'type': 'arrival',
-                'time': datetime.now(),
-                }
-            self.operations.append(arrival_drinks)
+        self.add_operation(name=name, amount=amount, op_type='arrival')
 
     def print_operations(self):
         for operation in self.operations:
@@ -61,7 +51,17 @@ class Bar:
 bar = Bar()
 
 print('Hello! What drink do you want?')
-bar.get_drinks(name=input('name: '), amount=int(input('How many?  ')))
+present, available = bar.get_drinks(
+    name=input('name: '),
+    amount=int(input('How many?  '))
+)
+if present:
+    if available:
+        print('Here you are!')
+    else:
+        print("Sorry, we don't have this much")
+else:
+    print("Sorry, we don't have it")
 
 if input('\nDo you need a product delivery? y/n  ') == 'y':
     print('What do we need?')
