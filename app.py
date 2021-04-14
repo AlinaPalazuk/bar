@@ -29,6 +29,7 @@ class Bar:
         else:
             print('Sorry, we don"t have it. Something else?')
 
+
     def supply(self, name, amount):
         if name in self.drinks:
             self.drinks[name] += amount
@@ -48,6 +49,7 @@ class Bar:
                 'time': datetime.now(),
                 }
             self.operations.append(arrival_drinks)
+
 
     def print_operations(self):
         for operation in self.operations:
