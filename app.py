@@ -51,17 +51,20 @@ class Bar:
 bar = Bar()
 
 print('Hello! What drink do you want?')
-present, available = bar.get_drinks(
-    name=input('name: '),
-    amount=int(input('How many?  '))
-)
-if present:
-    if available:
-        print('Here you are!')
+while True:
+    present, available = bar.get_drinks(
+        name=input('name: '),
+        amount=int(input('How many?  '))
+    )
+    if present:
+        if available:
+            print('Here you are!')
+        else:
+            print("Sorry, we don't have this much")
     else:
-        print("Sorry, we don't have this much")
-else:
-    print("Sorry, we don't have it")
+        print("Sorry, we don't have it")
+    if input("something else?(y/n)\n") == "n":
+        break
 
 if input('\nDo you need a product delivery? y/n  ') == 'y':
     print('What do we need?')
