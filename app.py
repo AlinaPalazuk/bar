@@ -59,7 +59,7 @@ if present:
     if available:
         print('Here you are!')
     else:
-        print("Sorry, we don't have this much")
+        print("Sorry, we don't have enough of this")
 else:
     print("Sorry, we don't have it")
 
